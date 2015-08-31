@@ -1,2 +1,7 @@
-# rg-router
-State based router for Riot apps
+## In development!
+
+## Use
+
+```
+npm install riotgear-router --save
+```

@@ -1,0 +1,41 @@
+{
+  "name": "riotgear-router",
+  "version": "1.0.0",
+  "description": "State based router for Riot apps",
+  "main": "dist/rg-router.min.js",
+  "scripts": {
+    "lint": "jshint . --exclude-path=.gitignore",
+    "riot": "riot src dist/rg-router.js --type es6",
+    "postriot": "riot demo --type es6",
+    "concat": "cat src/router.js dist/rg-router.js | babel --out-file dist/rg-router.js",
+    "uglify": "uglifyjs --output dist/rg-router.min.js --mangle -- dist/rg-router.js",
+    "build": "npm run riot && npm run concat && npm run uglify"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RiotGear/rg-router.git"
+  },
+  "keywords": [
+    "riotjs",
+    "riot",
+    "component",
+    "state",
+    "views",
+    "router"
+  ],
+  "author": "Gregory Pratt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RiotGear/rg-router/issues"
+  },
+  "homepage": "https://github.com/RiotGear/rg-router",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "jshint": "^2.7.0",
+    "riot": "~2.2.2",
+    "uglify-js": "^2.4.21"
+  }
+}
