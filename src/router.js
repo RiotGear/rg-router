@@ -15,7 +15,7 @@
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
       if (!history.state || (history.state.name != state.name && !popped)) {
-        const url = state.url ? `#/${state.url}` : null
+        const url = state.url ? `#!/${state.url}` : null
         history.pushState(state.name, null, url)
       }
     }
@@ -81,7 +81,7 @@
 
     start: () => {
       if (window.location.hash) {
-        const _state = findStateByUrl(window.location.hash.replace('#/', ''))
+        const _state = findStateByUrl(window.location.hash.replace('#!/', ''))
         if (_state) router.go(_state.name)
       }
       window.addEventListener('popstate', handlePop)
