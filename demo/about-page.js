@@ -5,7 +5,6 @@ this.mixin('rg.router');
 this.router.add({
 	name: 'about.more',
 	subtitle: 'More about us',
-	history: false,
 	about: {
 		name: 'Demo info'
 	},
@@ -21,7 +20,8 @@ this.router.add({
 	message: 'Everything about us',
 	info: {
 		data: 42
-	}
+	},
+	resolve: null
 });
 
 this.back = function (stateName) {

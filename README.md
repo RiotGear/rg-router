@@ -77,6 +77,8 @@ When you go to `about.people` you will still have the title value available via 
 
 The `history` option is also inherited so if you want a child state to be part of the browser history reset it to true.
 
+Beware that the `resolve` function is also inherited. So if you navigate to a state whose parent is set to wait for a promise to resolve then the child will wait too. You can overwrite this by setting resolve to null on the child.
+
 ### `.remove()`
 
 ```javascript

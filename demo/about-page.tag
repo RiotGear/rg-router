@@ -24,7 +24,6 @@
 		this.router.add({
 			name: 'about.more',
 			subtitle: 'More about us',
-			history: false,
 			about: {
 				name: 'Demo info'
 			},
@@ -38,7 +37,8 @@
 			message: 'Everything about us',
 			info: {
 				data: 42
-			}
+			},
+			resolve: null
 		})
 
 		this.back = stateName => {

@@ -14,7 +14,7 @@
     });
   };
   var handlePop = function handlePop(e) {
-    if (e.state) router.go(e.state.name, true);
+    if (e.state) router.go(e.state, true);
   };
   var changeState = function changeState(state, popped) {
     // If supported
@@ -22,7 +22,7 @@
       // New state
       if (!history.state || history.state.name != state.name && !popped) {
         var url = state.url ? '#/' + state.url : null;
-        history.pushState(state, null, url);
+        history.pushState(state.name, null, url);
       }
     }
     router.current = state;
