@@ -2,8 +2,11 @@
 ### TODO
 
 - Read the URL **Onload** and fire `go` with the state name
+- **Inherit state data** (see 'about.more' should inherit `title` in the demo)
 - Call the **resolve** function and resolve it before calling `go`
 - Handle **URL parameters**
+- **Fallback states**
+- Option for state **not to be added to history**
 
 ## Install
 
@@ -62,6 +65,8 @@ this.router.go('about')
 Call `go()` if you want to change state. Calling go will update the current state, and if a URL is specified will update the URL on the browser.
 
 If you specify a state name that doesn't exist the router will throw you an error.
+
+The router will ignore attempts to go to the same state in succession.
 
 ### `.stop()`
 

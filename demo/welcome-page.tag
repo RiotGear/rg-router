@@ -2,7 +2,7 @@
 
 	<div if={ router.current.name == 'welcome' }>
 		<h1>Welcome</h1>
-		<button onclick={ back }>Back</button>
+		<button onclick={ back }>Back (to unknown state)</button>
 	</div>
 
 	<script>

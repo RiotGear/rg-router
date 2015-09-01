@@ -14,6 +14,10 @@
 
   var router = {
     add: function add(state) {
+      if (!state || !state.name) {
+        throw 'Please specify a state name';
+        return;
+      }
       var _state = findStateByName(state);
       if (_state) _state = state;else _states.push(state);
       router.trigger('add');
@@ -29,16 +33,12 @@
 
     go: function go(name, popped) {
       if (!router.active || !name) return;
-      // Match the state in the list of states, if no state available console.error
+      // Match the state in the list of states, if no state available throw error
       var _state = findStateByName(name);
       if (!_state) {
-        console.error('State \'' + name + '\' has not been configured');
+        throw 'State \'' + name + '\' has not been configured';
         return;
       }
-
-      // Manage opts
-      if (_state.opts == null) router.opts = {}; // Wipe opts
-      else router.opts = Object.assign({}, router.opts, _state.opts); // Merge opts
 
       // TODO: Resolve the resolve function
 
@@ -69,7 +69,6 @@
       router.trigger('stop');
     },
 
-    opts: {},
     current: undefined,
     active: true
   };

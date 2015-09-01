@@ -12,9 +12,7 @@ this.router.add({
 this.router.add({
 	name: 'about',
 	url: 'about',
-	opts: {
-		title: 'About us'
-	}
+	title: 'About us'
 });
 
 this.goWelcome = function (stateName) {
