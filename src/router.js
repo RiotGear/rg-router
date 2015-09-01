@@ -32,11 +32,27 @@
     go: (name, popped) => {
       if (!router.active || !name) return
         // Match the state in the list of states, if no state available throw error
-      const _state = findStateByName(name)
+      let _state = findStateByName(name)
       if (!_state) {
         throw `State '${name}' has not been configured`
         return
       }
+
+      // Merge the state options with the parent states
+      let names = name.split('.') // ["about", "more", "all"]
+      names = names.map((name, i) => {
+        if (i > 0) {
+          return names.slice(0, i).join('.') + '.' + name
+        } else {
+          return name
+        }
+      })
+      names.forEach((name, i) => {
+        if (i < names.length) {
+          const _parent = findStateByName(name)
+          _state = Object.assign({}, _state, _parent)
+        }
+      })
 
       // TODO: Resolve the resolve function
 

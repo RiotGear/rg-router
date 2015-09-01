@@ -40,6 +40,22 @@
         return;
       }
 
+      // Merge the state options with the parent states
+      var names = name.split('.'); // ["about", "more", "all"]
+      names = names.map(function (name, i) {
+        if (i > 0) {
+          return names.slice(0, i).join('.') + '.' + name;
+        } else {
+          return name;
+        }
+      });
+      names.forEach(function (name, i) {
+        if (i < names.length) {
+          var _parent = findStateByName(name);
+          _state = Object.assign({}, _state, _parent);
+        }
+      });
+
       // TODO: Resolve the resolve function
 
       // If supported

@@ -2,7 +2,6 @@
 ### TODO
 
 - Read the URL **Onload** and fire `go` with the state name
-- **Inherit state data** (see 'about.more' should inherit `title` in the demo)
 - Call the **resolve** function and resolve it before calling `go`
 - Handle **URL parameters**
 - **Fallback states**
@@ -47,7 +46,26 @@ If you do not specify a `url` the browser back and forward buttons will still wo
 
 States names need to be unique. You can add a state with the same name but it will overwrite the state stored by the router.
 
-You can add whatever you want to a state and get access to it via `this.rounter.current` from within your tag.
+### `inherit.state.data`
+
+You can add whatever you want to a state and get access to it via `this.router.current` from within your tag, for example:
+
+```javascript
+this.router.add({
+  name: 'about',
+  title: 'About our website' // this.router.current.title
+})
+```
+
+You can inherit the data from parent states by using dot notation in the state name:
+
+```javascript
+this.router.add({
+  name: 'about.people'
+})
+```
+
+When you go to `about.people` you will still have the title value available via `this.router.current.title`
 
 ### `.remove()`
 
