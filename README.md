@@ -132,7 +132,3 @@ Check to see if the router is running or whether it has been stopped.
 this.router.on('go', state = > console.log(state))
 ```
 The router is an observable and will trigger an event for each of the above API calls.
-
-### TODO
-
-- **URL parameters**: /collection/:id
