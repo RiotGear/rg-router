@@ -96,6 +96,8 @@ If you specify a state name that doesn't exist the router will throw you an erro
 
 The router will ignore attempts to go to the same state in succession.
 
+**Calling `go()` will trigger an update on any tag the router is on via the mixin**
+
 ### `.stop()`
 
 ```javascript
