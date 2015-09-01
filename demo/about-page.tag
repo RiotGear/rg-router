@@ -1,7 +1,8 @@
 <about-page>
 
 	<div if={ router.current.name.startsWith('about') }>
-		<h1>About</h1>
+		<h1>{ router.current.title }</h1>
+		<h3>{ subtitle }</h3>
 
 		<button onclick={ back }>History Back</button>
 
@@ -13,8 +14,13 @@
 	<script>
 		this.mixin('rg.router')
 
+		this.subtitle = opts.subtitle
+
 		this.router.add({
-			name: 'about.more'
+			name: 'about.more',
+			opts: {
+				subtitle: 'Even more about us'
+			}
 		})
 
 		this.back = stateName => {

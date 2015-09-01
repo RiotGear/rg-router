@@ -2,7 +2,6 @@
 
 ;
 (function () {
-  var _config = {};
   var _states = [];
   var findStateByName = function findStateByName(name) {
     return _states.find(function (state) {
@@ -37,11 +36,16 @@
         return;
       }
 
+      // Manage opts
+      if (_state.opts == null) router.opts = {}; // Wipe opts
+      else router.opts = Object.assign({}, router.opts, _state.opts); // Merge opts
+
       // TODO: Resolve the resolve function
 
+      // If supported
       if (typeof history.pushState != 'undefined') {
-        if (history.state.name != _state.name && !popped) {
-          // New state
+        // New state
+        if (!history.state || history.state.name != _state.name && !popped) {
           var url = _state.url ? '#/' + _state.url : null;
           history.pushState(_state, null, url);
         }
@@ -65,6 +69,7 @@
       router.trigger('stop');
     },
 
+    opts: {},
     current: undefined,
     active: true
   };

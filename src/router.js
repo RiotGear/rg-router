@@ -1,6 +1,5 @@
 ;
 (() => {
-  let _config = {}
   let _states = []
   let findStateByName = name => _states.find(state => {
     if (state.name == name) return state
@@ -11,6 +10,10 @@
 
   const router = {
     add: (state) => {
+      if (!state || !state.name) {
+        throw 'Please specify a state name'
+        return
+      }
       let _state = findStateByName(state)
       if (_state) _state = state
       else _states.push(state)
@@ -28,17 +31,19 @@
 
     go: (name, popped) => {
       if (!router.active || !name) return
-        // Match the state in the list of states, if no state available console.error
+        // Match the state in the list of states, if no state available throw error
       const _state = findStateByName(name)
       if (!_state) {
-        console.error(`State '${name}' has not been configured`)
+        throw `State '${name}' has not been configured`
         return
       }
 
       // TODO: Resolve the resolve function
 
+      // If supported
       if (typeof history.pushState != 'undefined') {
-        if (history.state.name != _state.name && !popped) { // New state
+        // New state
+        if (!history.state || (history.state.name != _state.name && !popped)) {
           const url = _state.url ? `#/${_state.url}` : null
           history.pushState(_state, null, url)
         }

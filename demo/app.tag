@@ -16,9 +16,7 @@
 		this.router.add({
 			name: 'about',
 			url: 'about',
-			opts: {
-				z: 26
-			}
+			title: 'About us'
 		})
 
 		this.goWelcome = stateName => {
