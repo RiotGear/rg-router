@@ -21,7 +21,7 @@
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
       if (!history.state || history.state.name != state.name && !popped) {
-        var url = state.url ? '#/' + state.url : null;
+        var url = state.url ? '#!/' + state.url : null;
         history.pushState(state.name, null, url);
       }
     }
@@ -86,7 +86,7 @@
 
     start: function start() {
       if (window.location.hash) {
-        var _state = findStateByUrl(window.location.hash.replace('#/', ''));
+        var _state = findStateByUrl(window.location.hash.replace('#!/', ''));
         if (_state) router.go(_state.name);
       }
       window.addEventListener('popstate', handlePop);
