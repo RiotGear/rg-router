@@ -27,7 +27,10 @@
 			history: false,
 			about: {
 				name: 'Demo info'
-			}
+			},
+			resolve: () => new Promise(function (resolve) {
+				window.setTimeout(resolve, 2000)
+			})
 		})
 
 		this.router.add({

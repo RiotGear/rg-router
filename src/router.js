@@ -10,6 +10,18 @@
   let handlePop = e => {
     if (e.state) router.go(e.state.name, true)
   }
+  let changeState = (state, popped) => {
+    // If supported
+    if (typeof history.pushState != 'undefined' && state.history != false) {
+      // New state
+      if (!history.state || (history.state.name != state.name && !popped)) {
+        const url = state.url ? `#/${state.url}` : null
+        history.pushState(state, null, url)
+      }
+    }
+    router.current = state
+    router.trigger('go', state)
+  }
 
   const router = {
     add: (state) => {
@@ -57,19 +69,14 @@
         }
       })
 
-      // If supported
-      if (typeof history.pushState != 'undefined' && _state.history != false) {
-        // New state
-        if (!history.state || (history.state.name != _state.name && !popped)) {
-          const url = _state.url ? `#/${_state.url}` : null
-          history.pushState(_state, null, url)
-        }
+      // Resolve the resolve function
+      if (typeof _state.resolve == 'function') {
+        let promise = _state.resolve()
+        if (typeof promise.then == 'function')
+          promise.then(() => changeState(_state, popped))
+      } else {
+        changeState(_state, popped)
       }
-
-      // TODO: Resolve the resolve function
-
-      router.current = _state
-      router.trigger('go', _state)
     },
 
     start: () => {

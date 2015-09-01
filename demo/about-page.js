@@ -8,6 +8,11 @@ this.router.add({
 	history: false,
 	about: {
 		name: 'Demo info'
+	},
+	resolve: function resolve() {
+		return new Promise(function (resolve) {
+			window.setTimeout(resolve, 2000);
+		});
 	}
 });
 

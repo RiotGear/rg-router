@@ -1,8 +1,4 @@
 ## In development!
-### TODO
-
-- Call the **resolve** function and resolve it before calling `go`
-- Handle **URL parameters**
 
 ## Install
 
@@ -45,7 +41,7 @@ this.router.add({
   url: '/about',
   history: false,
   resolve: () => new Promise(function (resolve, reject) {
-    // ...
+    window.setTimeout(resolve, 2000)
   })
 })
 ```
@@ -134,3 +130,7 @@ Check to see if the router is running or whether it has been stopped.
 this.router.on('go', state = > console.log(state))
 ```
 The router is an observable and will trigger an event for each of the above API calls.
+
+### TODO
+
+- **URL parameters**: /collection/:id
