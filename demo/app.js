@@ -1,14 +1,10 @@
-riot.tag('demo-app', '<h1>{ router.current.name }</h1> <button onclick="{ goWelcome }">Welcome</button> <button onclick="{ goAbout }">About</button> ', function(opts) {var _this = this;
+riot.tag('demo-app', '<button onclick="{ goWelcome }">Welcome</button> <button onclick="{ goAbout }">About</button>', function(opts) {var _this = this;
 
 this.mixin('rg.router');
 
-this.router.on('go', function (state) {
-	console.log(state);
-	_this.update();
-});
-
 this.router.add({
 	name: 'welcome',
+	url: 'welcome',
 	opts: {
 		a: 1
 	}
@@ -20,11 +16,6 @@ this.router.add({
 		z: 26
 	}
 });
-this.router.add({ name: 'contact' });
-this.router.remove('home');
-this.router.remove('contact');
-this.router.remove('home');
-this.router.add({ name: 'terms' });
 
 this.goWelcome = function (stateName) {
 	_this.router.go('welcome');
@@ -32,6 +23,13 @@ this.goWelcome = function (stateName) {
 
 this.goAbout = function (stateName) {
 	_this.router.go('about');
+};
+
+this.startRouter = function () {
+	return _this.router.start();
+};
+this.stopRouter = function () {
+	return _this.router.stop();
 };
 
 console.log(this.router.current);

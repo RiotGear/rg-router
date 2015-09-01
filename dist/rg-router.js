@@ -9,12 +9,11 @@
       if (state.name == name) return state;
     });
   };
+  var handlePop = function handlePop(e) {
+    if (e.state) router.go(e.state.name, true);
+  };
 
   var router = {
-    config: function config(_config2) {
-      return _config = _config2;
-    },
-
     add: function add(state) {
       var _state = findStateByName(state);
       if (_state) _state = state;else _states.push(state);
@@ -30,7 +29,7 @@
     },
 
     go: function go(name, popped) {
-      if (!router.active) return;
+      if (!router.active || !name) return;
       // Match the state in the list of states, if no state available console.error
       var _state = findStateByName(name);
       if (!_state) {
@@ -38,10 +37,14 @@
         return;
       }
 
-      // TODO: Resolve the resolve function then
-      // TODO: Update the URL if one was provided (HTML5 history API)
-      if (typeof history.pushState != 'undefined' && !popped) {
-        history.pushState(_state, null, '#/' + (_state.url || ''));
+      // TODO: Resolve the resolve function
+
+      if (typeof history.pushState != 'undefined') {
+        if (history.state.name != _state.name && !popped) {
+          // New state
+          var url = _state.url ? '#/' + _state.url : null;
+          history.pushState(_state, null, url);
+        }
       }
 
       router.current = _state;
@@ -49,19 +52,15 @@
     },
 
     start: function start() {
-      // TODO: Check states for the matching URL and call go() with the matching state name
+      // TODO: Onload: check states for the matching URL and call go() with the matching state name
 
-      window.addEventListener('popstate', function (e) {
-        return router.go(e.state.name, true);
-      });
+      window.addEventListener('popstate', handlePop);
       router.active = true;
       router.trigger('start');
     },
 
     stop: function stop() {
-      window.removeEventListener('popstate', function (e) {
-        return router.go(e.state.name, true);
-      });
+      window.addEventListener('popstate', handlePop);
       router.active = false;
       router.trigger('stop');
     },
@@ -72,6 +71,9 @@
 
   riot.observable(router);
   riot.mixin('rg.router', {
+    init: function init() {
+      this.router.on('go', this.update);
+    },
     router: router
   });
   router.start();
