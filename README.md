@@ -57,7 +57,7 @@ this.router.add({
 })
 ```
 
-You can inherit the data from parent states by using dot notation in the state name:
+You can also inherit the data from parent states by using dot notation in the state name:
 
 ```javascript
 this.router.add({
@@ -65,7 +65,7 @@ this.router.add({
 })
 ```
 
-When you go to `about.people` you will still have the title value available via `this.router.current.title`
+When you go to `about.people` you will still have the title value available via `this.router.current.title` that was set on the `about` state.
 
 ### `.remove()`
 
