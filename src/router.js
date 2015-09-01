@@ -4,6 +4,9 @@
   let findStateByName = name => _states.find(state => {
     if (state.name == name) return state
   })
+  let findStateByUrl = url => _states.find(state => {
+    if (state.url == url) return state
+  })
   let handlePop = e => {
     if (e.state) router.go(e.state.name, true)
   }
@@ -70,8 +73,10 @@
     },
 
     start: () => {
-      // TODO: Onload: check states for the matching URL and call go() with the matching state name
-
+      if (window.location.hash) {
+        const _state = findStateByUrl(window.location.hash.replace('#/', ''))
+        if (_state) router.go(_state.name)
+      }
       window.addEventListener('popstate', handlePop)
       router.active = true
       router.trigger('start')
@@ -94,5 +99,7 @@
     },
     router
   })
-  router.start()
+
+  if (!window.rg) window.rg = {}
+  window.rg.router = router
 })()

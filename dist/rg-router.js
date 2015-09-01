@@ -8,6 +8,11 @@
       if (state.name == name) return state;
     });
   };
+  var findStateByUrl = function findStateByUrl(url) {
+    return _states.find(function (state) {
+      if (state.url == url) return state;
+    });
+  };
   var handlePop = function handlePop(e) {
     if (e.state) router.go(e.state.name, true);
   };
@@ -72,8 +77,10 @@
     },
 
     start: function start() {
-      // TODO: Onload: check states for the matching URL and call go() with the matching state name
-
+      if (window.location.hash) {
+        var _state = findStateByUrl(window.location.hash.replace('#/', ''));
+        if (_state) router.go(_state.name);
+      }
       window.addEventListener('popstate', handlePop);
       router.active = true;
       router.trigger('start');
@@ -96,5 +103,7 @@
     },
     router: router
   });
-  router.start();
+
+  if (!window.rg) window.rg = {};
+  window.rg.router = router;
 })();

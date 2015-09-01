@@ -1,7 +1,6 @@
 ## In development!
 ### TODO
 
-- Read the URL **Onload** and fire `go` with the state name
 - Call the **resolve** function and resolve it before calling `go`
 - Handle **URL parameters**
 - **Fallback states**
@@ -13,12 +12,25 @@
 npm install riotgear-router --save
 ```
 
-Include the router in any tag you want to access the router from by mixin it in like so:
+Include the router in any tag you want to access the router from by "mixin" it in like so:
 
 ```javascript
 this.mixin('rg.router')
 ```
 
+Once you are happy to start the router call the [start()](#start) function from either a tag:
+
+```javascript
+this.router.start()
+```
+
+or via the `rg` object:
+
+```javascript
+rg.router.start()
+```
+
+ **The router does not start automatically.**
 
 ## API
 
@@ -98,7 +110,7 @@ If you want to stop the router and switch to use a different one this function w
 ```javascript
 this.router.start()
 ```
-If you've stopped the router and you want to restart it.
+On start the router will check the URL, match it with a state and call `go()`. **The router does not start automatically**. Refreshing the browser will only return you to a state that has a URL. URL-less states can't be refreshed.
 
 ### `.current`
 
@@ -112,7 +124,7 @@ Current state the router is in. This will contain everything specified on the st
 ```javascript
 this.router.active
 ```
-Check to see if the router is running or whether it has been stopped. The router starts automatically.
+Check to see if the router is running or whether it has been stopped.
 
 ### `.on('add remove go start stop')`
 
