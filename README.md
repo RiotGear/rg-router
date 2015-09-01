@@ -3,8 +3,6 @@
 
 - Call the **resolve** function and resolve it before calling `go`
 - Handle **URL parameters**
-- **Fallback states**
-- Option for state **not to be added to history**
 
 ## Install
 
@@ -45,6 +43,7 @@ You can add states at any point in time, on mount, on update, on click, on resol
 this.router.add({
   name: 'about',
   url: '/about',
+  history: false,
   resolve: () => new Promise(function (resolve, reject) {
     // ...
   })
@@ -52,6 +51,7 @@ this.router.add({
 ```
 - `name` is required, is the name of the state and the identifier to use when calling [go()](#go)
 - `url` is optional. It will update the browser URL on state change
+- `history` is optional. Set it to `false` to prevent the state from being added to your browser history
 - `resolve` is optional. The router will wait for `.then()` on the resolve function before going to the next state
 
 If you do not specify a `url` the browser back and forward buttons will still work.
@@ -78,6 +78,8 @@ this.router.add({
 ```
 
 When you go to `about.people` you will still have the title value available via `this.router.current.title` that was set on the `about` state.
+
+The `history` option is also inherited so if you want a child state to be part of the browser history reset it to true.
 
 ### `.remove()`
 

@@ -57,16 +57,16 @@
         }
       })
 
-      // TODO: Resolve the resolve function
-
       // If supported
-      if (typeof history.pushState != 'undefined') {
+      if (typeof history.pushState != 'undefined' && _state.history != false) {
         // New state
         if (!history.state || (history.state.name != _state.name && !popped)) {
           const url = _state.url ? `#/${_state.url}` : null
           history.pushState(_state, null, url)
         }
       }
+
+      // TODO: Resolve the resolve function
 
       router.current = _state
       router.trigger('go', _state)

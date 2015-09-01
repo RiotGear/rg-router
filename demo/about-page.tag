@@ -24,6 +24,7 @@
 		this.router.add({
 			name: 'about.more',
 			subtitle: 'More about us',
+			history: false,
 			about: {
 				name: 'Demo info'
 			}
