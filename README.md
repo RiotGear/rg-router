@@ -1,3 +1,9 @@
+## rgRouter
+
+<img src="https://raw.githubusercontent.com/RiotGear/rg-router/master/demo/img/icon.png" width="250px" />
+
+RiotGear Router provides Riot apps with state based routes and URL management via the HTML History API.
+
 ## Install
 
 ```
@@ -112,13 +118,6 @@ this.router.start()
 ```
 On start the router will check the URL, match it with a state and call `go()`. **The router does not start automatically**. Refreshing the browser will only return you to a state that has a URL. URL-less states can't be refreshed.
 
-### `.current`
-
-```javascript
-this.router.current
-```
-Current state the router is in. This will contain everything specified on the state as part of the `add()` function.
-
 ### `.active`
 
 ```javascript
@@ -126,9 +125,20 @@ this.router.active
 ```
 Check to see if the router is running or whether it has been stopped.
 
+### `.current`
+
+```javascript
+this.router.current
+```
+Current state the router is in. This will contain everything specified on the state as part of the `add()` function.
+
 ### `.on('add remove go start stop')`
 
 ```javascript
-this.router.on('go', state = > console.log(state))
+this.router.on('add', state = > console.log(state))
+this.router.on('remove', state = > console.log(state))
+this.router.on('go', (current, previous) = > console.log(current, previous))
+this.router.on('start')
+this.router.on('stop')
 ```
 The router is an observable and will trigger an event for each of the above API calls.

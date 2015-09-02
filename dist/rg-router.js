@@ -25,8 +25,9 @@
         history.pushState(state.name, null, url);
       }
     }
+    var prevState = Object.assign({}, router.current);
     router.current = state;
-    router.trigger('go', state);
+    router.trigger('go', state, prevState);
   };
 
   var router = {
@@ -37,7 +38,7 @@
       }
       var _state = findStateByName(state);
       if (_state) _state = state;else _states.push(state);
-      router.trigger('add');
+      router.trigger('add', _state);
     },
 
     remove: function remove(name) {

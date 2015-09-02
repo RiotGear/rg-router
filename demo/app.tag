@@ -2,6 +2,8 @@
 
 	<button onclick="{ goWelcome }">Welcome</button>
 	<button onclick="{ goAbout }">About</button>
+	<button onclick="{ startRouter }">Start</button>
+	<button onclick="{ stopRouter }">Stop</button>
 
 	<script>
 		this.mixin('rg.router')
@@ -19,18 +21,22 @@
 			title: 'About us'
 		})
 
-		this.goWelcome = stateName => {
+		this.goWelcome = () => {
 			this.router.go('welcome')
 		}
 
-		this.goAbout = stateName => {
+		this.goAbout = () => {
 			this.router.go('about')
 		}
 
 		this.startRouter = () => this.router.start()
 		this.stopRouter = () => this.router.stop()
 
-		console.log(this.router.current)
+		this.router.on('go', (curr, prev) => console.log(curr, prev))
+		this.router.on('start', () => console.log('started'))
+		this.router.on('stop', () => console.log('stopped'))
+		this.router.on('add', state => console.log('added', state))
+		this.router.on('remove', state => console.log('removed', state))
 	</script>
 
 </demo-app>
