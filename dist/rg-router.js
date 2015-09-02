@@ -86,18 +86,18 @@
     },
 
     start: function start() {
+      router.active = true;
       if (window.location.hash) {
         var _state = findStateByUrl(window.location.hash.replace('#!/', ''));
         if (_state) router.go(_state.name);
       }
       window.addEventListener('popstate', handlePop);
-      router.active = true;
       router.trigger('start');
     },
 
     stop: function stop() {
-      window.addEventListener('popstate', handlePop);
       router.active = false;
+      window.addEventListener('popstate', handlePop);
       router.trigger('stop');
     },
 
