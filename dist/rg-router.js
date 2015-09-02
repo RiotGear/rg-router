@@ -102,7 +102,7 @@
     },
 
     current: undefined,
-    active: true
+    active: false
   };
 
   riot.observable(router);
