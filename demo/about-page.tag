@@ -52,6 +52,10 @@
 		this.showEvenMore = () => {
 			this.router.go('about.more.all')
 		}
+
+		this.router.on('go', function (current, prev) {
+			console.log(current)
+		})
 	</script>
 
 </about-page>

@@ -51,7 +51,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       names.forEach(function (name, i) {
         if (i < names.length) {
           var _parent = findStateByName(name);
-          _state = _extends({}, _state, _parent);
+          _state = _extends({}, _parent, _state);
         }
       });
 

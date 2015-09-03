@@ -35,4 +35,8 @@ this.showMore = function () {
 this.showEvenMore = function () {
 	_this.router.go('about.more.all');
 };
+
+this.router.on('go', function (current, prev) {
+	console.log(current);
+});
 });

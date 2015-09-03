@@ -47,7 +47,7 @@
       names.forEach((name, i) => {
         if (i < names.length) {
           const _parent = findStateByName(name)
-          _state = Object.assign({}, _state, _parent)
+          _state = Object.assign({}, _parent, _state)
         }
       })
 
