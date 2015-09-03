@@ -2,7 +2,8 @@
 
 	<div if={ router.current.name == 'welcome' }>
 		<h1>Welcome</h1>
-		<button onclick={ back }>Back (to unknown state)</button>
+		<button onclick={ back }>Go Home</button>
+		<button onclick={ unknown }>Go to unknown state</button>
 	</div>
 
 	<script>
@@ -10,6 +11,10 @@
 
 		this.back = stateName => {
 			this.router.go('home')
+		}
+
+		this.unknown = stateName => {
+			this.router.go('unknown')
 		}
 	</script>
 

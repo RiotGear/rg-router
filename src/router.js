@@ -1,31 +1,9 @@
 ;
 (() => {
   let _states = []
-  let findStateByName = name => _states.find(state => {
-    if (state.name == name) return state
-  })
-  let findStateByUrl = url => _states.find(state => {
-    if (state.url == url) return state
-  })
-  let handlePop = e => {
-    if (e.state) router.go(e.state, true)
-  }
-  let changeState = (state, popped) => {
-    // If supported
-    if (typeof history.pushState != 'undefined' && state.history != false) {
-      // New state
-      if (!history.state || (history.state.name != state.name && !popped)) {
-        const url = state.url ? `#!/${state.url}` : null
-        history.pushState(state.name, null, url)
-      }
-    }
-    const prevState = Object.assign({}, router.current)
-    router.current = state
-    router.trigger('go', state, prevState)
-  }
 
   const router = {
-    add: (state) => {
+    add(state) {
       if (!state || !state.name) {
         throw 'Please specify a state name'
         return
@@ -36,7 +14,7 @@
       router.trigger('add', _state)
     },
 
-    remove: name => {
+    remove(name) {
       let _state = undefined
       _states = _states.filter(state => {
         if (state.name != name) return state
@@ -45,7 +23,7 @@
       router.trigger('remove', _state)
     },
 
-    go: (name, popped) => {
+    go(name, popped) {
       if (!router.active || !name) return
         // Match the state in the list of states, if no state available throw error
       let _state = findStateByName(name)
@@ -80,7 +58,7 @@
       }
     },
 
-    start: () => {
+    start() {
       router.active = true
       if (window.location.hash) {
         const _state = findStateByUrl(window.location.hash.replace('#!/', ''))
@@ -90,14 +68,40 @@
       router.trigger('start')
     },
 
-    stop: () => {
+    stop() {
       router.active = false
-      window.addEventListener('popstate', handlePop)
+      window.removeEventListener('popstate', handlePop)
       router.trigger('stop')
     },
 
     current: undefined,
     active: false
+  }
+
+  function findStateByName(name) {
+    return _states.find(state => state.name == name)
+  }
+
+  function findStateByUrl(url) {
+    return _states.find(state => state.url == url);
+  }
+
+  function handlePop(e) {
+    if (e.state) router.go(e.state, true)
+  }
+
+  function changeState(state, popped) {
+    // If supported
+    if (typeof history.pushState != 'undefined' && state.history != false) {
+      // New state
+      if (!history.state || (history.state.name != state.name && !popped)) {
+        const url = state.hasOwnProperty('url') ? `#!/${state.url}` : null
+        history.pushState(state.name, null, url)
+      }
+    }
+    const prevState = router.current
+    router.current = state
+    router.trigger('go', state, prevState)
   }
 
   riot.observable(router)

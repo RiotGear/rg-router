@@ -3,6 +3,10 @@ riot.tag('demo-app', '<button onclick="{ goWelcome }">Welcome</button> <button o
 this.mixin('rg.router');
 
 this.router.add({
+	name: 'home',
+	url: ''
+});
+this.router.add({
 	name: 'welcome',
 	url: 'welcome',
 	opts: {
