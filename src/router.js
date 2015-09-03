@@ -103,7 +103,7 @@
   riot.observable(router)
   riot.mixin('rg.router', {
     init: function() {
-      this.router.on('go', this.update)
+      this.router.on('go', () => this.update())
     },
     router
   })

@@ -1,6 +1,6 @@
 <about-page>
 
-	<div if={ router.current.name.startsWith('about') }>
+	<div if={ router.current.name.indexOf('about') == 0 }>
 		<h1>{ router.current.title }</h1>
 		<h3>{ router.current.subtitle }</h3>
 		<h4>{ router.current.message }</h4>
