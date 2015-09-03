@@ -1,36 +1,8 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 ;
 (function () {
   var _states = [];
-  var findStateByName = function findStateByName(name) {
-    return _states.find(function (state) {
-      if (state.name == name) return state;
-    });
-  };
-  var findStateByUrl = function findStateByUrl(url) {
-    return _states.find(function (state) {
-      if (state.url == url) return state;
-    });
-  };
-  var handlePop = function handlePop(e) {
-    if (e.state) router.go(e.state, true);
-  };
-  var changeState = function changeState(state, popped) {
-    // If supported
-    if (typeof history.pushState != 'undefined' && state.history != false) {
-      // New state
-      if (!history.state || history.state.name != state.name && !popped) {
-        var url = state.url ? '#!/' + state.url : null;
-        history.pushState(state.name, null, url);
-      }
-    }
-    var prevState = _extends({}, router.current);
-    router.current = state;
-    router.trigger('go', state, prevState);
-  };
 
   var router = {
     add: function add(state) {
@@ -72,7 +44,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       names.forEach(function (name, i) {
         if (i < names.length) {
           var _parent = findStateByName(name);
-          _state = _extends({}, _state, _parent);
+          _state = Object.assign({}, _state, _parent);
         }
       });
 
@@ -99,13 +71,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     stop: function stop() {
       router.active = false;
-      window.addEventListener('popstate', handlePop);
+      window.removeEventListener('popstate', handlePop);
       router.trigger('stop');
     },
 
     current: undefined,
     active: false
   };
+
+  function findStateByName(name) {
+    return _states.find(function (state) {
+      return state.name == name;
+    });
+  }
+
+  function findStateByUrl(url) {
+    return _states.find(function (state) {
+      return state.url == url;
+    });
+  }
+
+  function handlePop(e) {
+    if (e.state) router.go(e.state, true);
+  }
+
+  function changeState(state, popped) {
+    // If supported
+    if (typeof history.pushState != 'undefined' && state.history != false) {
+      // New state
+      if (!history.state || history.state.name != state.name && !popped) {
+        var url = state.hasOwnProperty('url') ? '#!/' + state.url : null;
+        history.pushState(state.name, null, url);
+      }
+    }
+    var prevState = router.current;
+    router.current = state;
+    router.trigger('go', state, prevState);
+  }
 
   riot.observable(router);
   riot.mixin('rg.router', {
