@@ -1,7 +1,14 @@
-'use strict';
+"use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 ;
 (function () {
+  // Polyfills
+  Array.prototype.find = Array.prototype.find || (Array.prototype.find = function (r) {
+    if (null === this) throw new TypeError("Array.prototype.find called on null or undefined");if ("function" != typeof r) throw new TypeError("predicate must be a function");for (var t, n = Object(this), e = n.length >>> 0, o = arguments[1], i = 0; e > i; i++) if ((t = n[i], r.call(o, t, i, n))) return t;return void 0;
+  });
+
   var _states = [];
 
   var router = {
@@ -28,7 +35,7 @@
       // Match the state in the list of states, if no state available throw error
       var _state = findStateByName(name);
       if (!_state) {
-        throw 'State \'' + name + '\' has not been configured';
+        throw "State '" + name + "' has not been configured";
         return;
       }
 
@@ -44,7 +51,7 @@
       names.forEach(function (name, i) {
         if (i < names.length) {
           var _parent = findStateByName(name);
-          _state = Object.assign({}, _state, _parent);
+          _state = _extends({}, _state, _parent);
         }
       });
 
@@ -100,7 +107,7 @@
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
       if (!history.state || history.state.name != state.name && !popped) {
-        var url = state.hasOwnProperty('url') ? '#!/' + state.url : null;
+        var url = state.hasOwnProperty('url') ? "#!/" + state.url : null;
         history.pushState(state.name, null, url);
       }
     }

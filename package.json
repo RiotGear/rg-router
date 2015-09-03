@@ -1,13 +1,13 @@
 {
   "name": "riotgear-router",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "State based router for Riot apps",
   "main": "dist/rg-router.min.js",
   "scripts": {
     "lint": "jshint . --exclude-path=.gitignore",
     "riot": "riot src dist/rg-router.js --type es6",
     "postriot": "riot demo --type es6",
-    "concat": "cat src/router.js dist/rg-router.js | babel --out-file dist/rg-router.js ",
+    "concat": "cat src/router.js dist/rg-router.js | babel --plugins object-assign --out-file dist/rg-router.js ",
     "uglify": "uglifyjs --output dist/rg-router.min.js --mangle -- dist/rg-router.js",
     "build": "npm run riot && npm run concat && npm run uglify"
   },
@@ -35,6 +35,7 @@
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-core": "^5.8.23",
+    "babel-plugin-object-assign": "^1.2.1",
     "jshint": "^2.7.0",
     "riot": "~2.2.2",
     "uglify-js": "^2.4.21"
