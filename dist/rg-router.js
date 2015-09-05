@@ -2,8 +2,7 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-;
-(function () {
+;(function () {
   // Polyfills
   Array.prototype.find = Array.prototype.find || (Array.prototype.find = function (r) {
     if (null === this) throw new TypeError("Array.prototype.find called on null or undefined");if ("function" != typeof r) throw new TypeError("predicate must be a function");for (var t, n = Object(this), e = n.length >>> 0, o = arguments[1], i = 0; e > i; i++) if ((t = n[i], r.call(o, t, i, n))) return t;return void 0;
@@ -20,6 +19,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       var _state = findStateByName(state);
       if (_state) _state = state;else _states.push(state);
       router.trigger('add', _state);
+      return this;
     },
 
     remove: function remove(name) {
@@ -28,6 +28,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         if (state.name != name) return state;else _state = state;
       });
       router.trigger('remove', _state);
+      return this;
     },
 
     go: function go(name, popped) {
@@ -64,6 +65,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       } else {
         changeState(_state, popped);
       }
+      return this;
     },
 
     start: function start() {
@@ -74,12 +76,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
       window.addEventListener('popstate', handlePop);
       router.trigger('start');
+      return this;
     },
 
     stop: function stop() {
       router.active = false;
       window.removeEventListener('popstate', handlePop);
       router.trigger('stop');
+      return this;
     },
 
     current: undefined,

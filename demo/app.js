@@ -5,15 +5,13 @@ this.mixin('rg.router');
 this.router.add({
 	name: 'home',
 	url: ''
-});
-this.router.add({
+}).add({
 	name: 'welcome',
 	url: 'welcome',
 	opts: {
 		a: 1
 	}
-});
-this.router.add({
+}).add({
 	name: 'about',
 	url: 'about',
 	title: 'About us'

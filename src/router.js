@@ -1,5 +1,4 @@
-;
-(() => {
+;(() => {
   // Polyfills
   Array.prototype.find=Array.prototype.find||(Array.prototype.find=function(r){if(null===this)throw new TypeError("Array.prototype.find called on null or undefined");if("function"!=typeof r)throw new TypeError("predicate must be a function");for(var t,n=Object(this),e=n.length>>>0,o=arguments[1],i=0;e>i;i++)if(t=n[i],r.call(o,t,i,n))return t;return void 0});
 
@@ -15,6 +14,7 @@
       if (_state) _state = state
       else _states.push(state)
       router.trigger('add', _state)
+      return this
     },
 
     remove(name) {
@@ -24,6 +24,7 @@
         else _state = state
       })
       router.trigger('remove', _state)
+      return this
     },
 
     go(name, popped) {
@@ -59,6 +60,7 @@
       } else {
         changeState(_state, popped)
       }
+      return this
     },
 
     start() {
@@ -69,12 +71,14 @@
       }
       window.addEventListener('popstate', handlePop)
       router.trigger('start')
+      return this
     },
 
     stop() {
       router.active = false
       window.removeEventListener('popstate', handlePop)
       router.trigger('stop')
+      return this
     },
 
     current: undefined,

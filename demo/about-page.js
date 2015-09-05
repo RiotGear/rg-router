@@ -13,9 +13,7 @@ this.router.add({
 			window.setTimeout(resolve, 2000);
 		});
 	}
-});
-
-this.router.add({
+}).add({
 	name: 'about.more.all',
 	message: 'Everything about us',
 	info: {
@@ -35,8 +33,4 @@ this.showMore = function () {
 this.showEvenMore = function () {
 	_this.router.go('about.more.all');
 };
-
-this.router.on('go', function (current, prev) {
-	console.log(current);
-});
 });

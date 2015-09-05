@@ -34,6 +34,13 @@ rg.router.start()
 
 After adding the router your tag will have access to the `router` via `this.router`.
 
+### Fluent API Interface
+
+If you want you can chain function calls together. For example:
+
+```javascript
+rg.router.add().start().go()
+```
 
 ### `.add()`
 

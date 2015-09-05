@@ -31,8 +31,7 @@
 				window.setTimeout(resolve, 2000)
 			})
 		})
-
-		this.router.add({
+		.add({
 			name: 'about.more.all',
 			message: 'Everything about us',
 			info: {
@@ -52,10 +51,6 @@
 		this.showEvenMore = () => {
 			this.router.go('about.more.all')
 		}
-
-		this.router.on('go', function (current, prev) {
-			console.log(current)
-		})
 	</script>
 
 </about-page>
