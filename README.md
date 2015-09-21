@@ -1,6 +1,6 @@
 ## rgRouter
 
-<img src="https://raw.githubusercontent.com/RiotGear/rg-router/master/demo/img/icon.png" width="250px" />
+<img src="https://raw.githubusercontent.com/RiotGear/rg-router/master/demo/img/icon.png" width="180px" />
 
 RiotGear Router provides Riot apps with state based routes and URL management via the HTML History API.
 
@@ -42,6 +42,10 @@ If you want you can chain function calls together. For example:
 rg.router.add().start().go()
 ```
 
+### To #! or to not #!
+
+By default the router uses `#!`, however you can change this easily by setting `rg.router.hash` to some other value.
+
 ### `.add()`
 
 You can add states at any point in time, on mount, on update, on click, on resolve of a promise...whenever.
@@ -64,6 +68,39 @@ this.router.add({
 If you do not specify a `url` the browser back and forward buttons will still work.
 
 States names need to be unique. You can add a state with the same name but it will overwrite the state stored by the router.
+
+### `/:state/:parameters`
+
+You can use template patterns like this:
+
+```javascript
+rg.router.add({
+  name: 'rest',
+  url: '/:collection/:id/:action'
+})
+```
+
+When the router starts it matches the URL with a state.
+
+`/users/470129/edit` will match against `'/:collection/:id/:action'`
+
+If successful the router will create a `params` object on the state and copy the values across which you can gain access to via the `go` event.
+
+e.g.
+
+```javascript
+this.router.on('go', state = > {
+  state.params.collection // users
+  state.params.id         // 470129
+  state.params.edit       // edit
+})
+```
+
+The template can be anything you'd like, for instance `/about/:page` or `/alerts/:type/viewable`.
+
+A parameter is prefixed with `:`.
+
+When you call `go()` you can pass the state a params object that the router uses to construct the URL.
 
 ### `inherit.state.data`
 
@@ -101,7 +138,7 @@ Just as with adding, you can remove states whenever you want in the lifecycle of
 ### `.go()`
 
 ```javascript
-this.router.go('about')
+this.router.go('users', params)
 ```
 Call `go()` if you want to change state. Calling go will update the current state, and if a URL is specified will update the URL on the browser.
 
@@ -110,6 +147,8 @@ If you specify a state name that doesn't exist the router will throw you an erro
 The router will ignore attempts to go to the same state in succession.
 
 **Calling `go()` will trigger an update on any tag the router is on via the mixin**
+
+The router will update the URL based on the template URL on the state and the structure of the `params` object.
 
 ### `.stop()`
 
