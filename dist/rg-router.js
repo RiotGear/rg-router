@@ -80,7 +80,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     start: function start() {
       router.active = true;
       if (window.location.hash) {
-        var _state = findStateByUrl(window.location.hash.replace(router.hash + "/", ''));
+        var _state2 = findStateByUrl(window.location.hash.replace(router.hash + "/", ''));
+        if (_state2) router.go(_state2.name);
+      } else if (router.hash === '') {
+        // we are using pushState
+        var _state = findStateByUrl(window.location.pathname.slice(1));
         if (_state) router.go(_state.name);
       }
       window.addEventListener('popstate', handlePop);
