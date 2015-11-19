@@ -80,6 +80,9 @@
         if (window.location.hash) {
           const _state = findStateByUrl(window.location.hash.replace(`${router.hash}/`, ''))
           if (_state) router.go(_state.name)
+        } else if (router.hash === '') { // we are using pushState
+          var _state = findStateByUrl(window.location.pathname.slice(1));
+          if (_state) router.go(_state.name);
         }
         window.addEventListener('popstate', handlePop)
         router.trigger('start')
