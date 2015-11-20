@@ -136,15 +136,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   }
 
   function handlePop(e) {
-    if (e.state) router.go(e.state, null, true);
+    if (e.state) router.go(e.state.name, e.state.params, true);
   }
 
   function changeState(state, popped) {
     // If supported
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
-      if (!history.state || history.state.name != state.name && !popped) {
-        history.pushState(state.name, null, buildURL(state));
+      if (!history.state || !popped) {
+        history.pushState(state, null, buildURL(state));
       }
     }
     var prevState = router.current;

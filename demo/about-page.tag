@@ -1,7 +1,7 @@
 <about-page>
 
-	<div if={ router.current.name.indexOf('about') == 0 }>
-		<h1>{ router.current.title }</h1>
+	<div if={ router.current.name.indexOf('about') == 0 || router.current.params.page === 'about' }>
+		<h1>{ router.current.params.title }</h1>
 		<h3>{ router.current.subtitle }</h3>
 		<h4>{ router.current.message }</h4>
 		<p>
