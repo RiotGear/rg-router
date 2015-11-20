@@ -1,19 +1,18 @@
 {
   "name": "riotgear-router",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "State based router for Riot apps",
   "main": "dist/rg-router.min.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "lint": "jshint . --exclude-path=.gitignore",
     "riot": "riot src dist/rg-router.js --type es6",
     "postriot": "riot demo --type es6",
     "concat": "cat src/router.js dist/rg-router.js | babel --plugins object-assign --out-file dist/rg-router.js ",
     "uglify": "uglifyjs --output dist/rg-router.min.js --mangle -- dist/rg-router.js",
     "build": "npm run riot && npm run concat && npm run uglify"
   },
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/RiotGear/rg-router.git"
@@ -21,7 +20,13 @@
   "keywords": [
     "riotjs",
     "riot",
-    "component",
+    "webcomponents",
+    "html5",
+    "es6",
+    "javascript",
+    "tags",
+    "components",
+    "riotgear",
     "state",
     "views",
     "router"
@@ -33,11 +38,10 @@
   },
   "homepage": "https://github.com/RiotGear/rg-router",
   "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-core": "^5.8.23",
+    "babel": "~5.8.34",
+    "babel-core": "~5.8.34",
     "babel-plugin-object-assign": "^1.2.1",
-    "jshint": "^2.7.0",
-    "riot": "~2.2.2",
-    "uglify-js": "^2.4.21"
+    "riot": "~2.3.1",
+    "uglify-js": "~2.5.0"
   }
 }

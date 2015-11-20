@@ -1,4 +1,5 @@
-riot.tag('about-page', '<div if="{ router.current.name.indexOf(\'about\') == 0 }"> <h1>{ router.current.title }</h1> <h3>{ router.current.subtitle }</h3> <h4>{ router.current.message }</h4> <p> { router.current.about.name } </p> <p> { router.current.info.data } </p> <button onclick="{ back }">History Back</button> <button onclick="{ showMore }">More...</button> <button onclick="{ showEvenMore }">Even More...</button> </div>', function(opts) {var _this = this;
+riot.tag2('about-page', '<div if="{router.current.name.indexOf(\'about\') == 0}"> <h1>{router.current.title}</h1> <h3>{router.current.subtitle}</h3> <h4>{router.current.message}</h4> <p> {router.current.about.name} </p> <p> {router.current.info.data} </p> <button onclick="{back}">History Back</button> <button onclick="{showMore}">More...</button> <button onclick="{showEvenMore}">Even More...</button> </div>', '', '', function(opts) {
+var _this = this;
 
 this.mixin('rg.router');
 
@@ -33,4 +34,4 @@ this.showMore = function () {
 this.showEvenMore = function () {
 	_this.router.go('about.more.all');
 };
-});
+}, '{ }');

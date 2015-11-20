@@ -1,4 +1,5 @@
-riot.tag('demo-app', '<button onclick="{ goWelcome }">Welcome</button> <button onclick="{ goAbout }">About</button> <button onclick="{ startRouter }">Start</button> <button onclick="{ stopRouter }">Stop</button> <button onclick="{ goTemplateUrl }">Template Url</button> <button onclick="{ goTemplateUrlWithId }">Template Url with Id</button>', function(opts) {var _this = this;
+riot.tag2('demo-app', '<button onclick="{goWelcome}">Welcome</button> <button onclick="{goAbout}">About</button> <button onclick="{startRouter}">Start</button> <button onclick="{stopRouter}">Stop</button> <button onclick="{goTemplateUrl}">Template Url</button> <button onclick="{goTemplateUrlWithId}">Template Url with Id</button>', '', '', function(opts) {
+var _this = this;
 
 this.mixin('rg.router');
 
@@ -55,4 +56,4 @@ this.router.on('remove', function (state) {
 this.router.on('go', function (curr, prev) {
 	return console.log(curr, prev);
 });
-});
+}, '{ }');
