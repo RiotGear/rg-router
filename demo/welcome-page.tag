@@ -1,6 +1,6 @@
 <welcome-page>
 
-	<div if={ router.current.name == 'welcome' }>
+	<div if={ router.current.name == 'page' && router.current.params.page == 'welcome' }>
 		<h1>Welcome</h1>
 		<button onclick={ back }>Go Home</button>
 		<button onclick={ unknown }>Go to unknown state</button>

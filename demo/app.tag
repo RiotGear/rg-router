@@ -6,6 +6,8 @@
 	<button onclick="{ stopRouter }">Stop</button>
 	<button onclick="{ goTemplateUrl }">Template Url</button>
 	<button onclick="{ goTemplateUrlWithId }">Template Url with Id</button>
+	<button onclick="{ usePushState }">Use pushState</button>
+	<button onclick="{ useLocationHash }">Use location hash</button>
 
 	<script>
 		this.mixin('rg.router')
@@ -19,25 +21,22 @@
 			url: '/about/:collection/:id/:action'
 		})
 		.add({
-			name: 'welcome',
-			url: 'welcome',
+			name: 'page',
+			url: 'page/:page',
 			opts: {
 				a: 1
 			}
 		})
-		.add({
-			name: 'about',
-			url: 'about',
-			title: 'About us'
-		})
 
-		this.goWelcome = () => this.router.go('welcome')
-		this.goAbout = () => this.router.go('about')
+		this.goWelcome = () => this.router.go('page', { page: 'welcome', title: 'Welcome' })
+		this.goAbout = () => this.router.go('page', { page: 'about', title: 'About Us' })
 		this.goTemplateUrl = () => this.router.go('about.template', { collection: 'biscuits' })
 		this.goTemplateUrlWithId = () => this.router.go('about.template', { collection: 'biscuits', id: '470129', action: 'edit', whatever: 'youwant' })
 
 		this.startRouter = () => this.router.start()
 		this.stopRouter = () => this.router.stop()
+		this.usePushState = () => this.router.hash = ''
+		this.useLocationHash = () => this.router.hash = '#!'
 
 		this.router.on('start', () => console.log('started'))
 		this.router.on('stop', () => console.log('stopped'))
