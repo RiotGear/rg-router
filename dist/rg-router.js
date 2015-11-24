@@ -144,11 +144,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
       if (!history.state || !popped) {
-        var _stateKeys = Object.keys(state);
         var _newState = {};
         // Only copy serializable properties
-        for (var key in _stateKeys) {
-          if (_stateKeys.hasOwnProperty(key) && typeof state[key] !== 'function') {
+        for (var key in state) {
+          if (state.hasOwnProperty(key) && typeof state[key] !== 'function') {
             _newState[key] = state[key];
           }
         }
