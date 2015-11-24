@@ -136,20 +136,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	}
 
 	function handlePop(e) {
-		if (e.state) {
-			var state = JSON.parse(e.state, function (k, v) {
-				if (v && typeof v === 'string' && v.substr(0, 8) == 'function') {
-					var startBody = v.indexOf('{') + 1;
-					var endBody = v.lastIndexOf('}');
-					var startArgs = v.indexOf('(') + 1;
-					var endArgs = v.indexOf(')');
-
-					return new Function(v.substring(startArgs, endArgs), v.substring(startBody, endBody));
-				}
-				return v;
-			});
-			router.go(state.name, state.params, true);
-		}
+		if (e.state) router.go(e.state.name, e.state.params, true);
 	}
 
 	function changeState(state, popped) {
@@ -157,13 +144,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		if (typeof history.pushState != 'undefined' && state.history != false) {
 			// New state
 			if (!history.state || !popped) {
-				var serializedState = JSON.stringify(state, function (k, v) {
-					if (typeof v === 'function') {
-						return v.toString();
+				var _newState = {};
+				// Only copy serializable properties
+				for (var key in state) {
+					if (state.hasOwnProperty(key) && typeof state[key] !== 'function') {
+						_newState[key] = state[key];
 					}
-					return v;
-				});
-				history.pushState(serializedState, null, buildURL(state));
+				}
+				history.pushState(_newState, null, buildURL(state));
 			}
 		}
 		var prevState = router.current;

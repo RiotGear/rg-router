@@ -129,20 +129,7 @@
 	}
 
 	function handlePop(e) {
-		if (e.state) {
-			const state = JSON.parse(e.state, function (k, v) {
-				if (v && typeof v === 'string' && v.substr(0, 8) == 'function') {
-					const startBody = v.indexOf('{') + 1
-					const endBody = v.lastIndexOf('}')
-					const startArgs = v.indexOf('(') + 1
-					const endArgs = v.indexOf(')')
-
-					return new Function(v.substring(startArgs, endArgs), v.substring(startBody, endBody))
-				}
-				return v
-			})
-			router.go(state.name, state.params, true)
-		}
+		if (e.state) router.go(e.state.name, e.state.params, true)
 	}
 
 	function changeState(state, popped) {
@@ -150,18 +137,19 @@
 		if (typeof history.pushState != 'undefined' && state.history != false) {
 			// New state
 			if (!history.state || !popped) {
-				const serializedState = JSON.stringify(state, function (k, v) {
-					if (typeof v === 'function') {
-						return v.toString()
+				var _newState = {}
+				// Only copy serializable properties
+				for (var key in state) {
+					if (state.hasOwnProperty(key) && typeof state[key] !== 'function') {
+						_newState[key] = state[key]
 					}
-					return v
-				})
-				history.pushState(serializedState, null, buildURL(state))
+				}
+				history.pushState(_newState, null, buildURL(state))
 			}
 		}
-		const prevState = router.current
-		router.current = state
-		router.trigger('go', state, prevState)
+		var prevState = router.current;
+		router.current = state;
+		router.trigger('go', state, prevState);
 	}
 
 	function buildURL(state) {
