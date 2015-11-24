@@ -1,6 +1,6 @@
 {
   "name": "riotgear-router",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "State based router for Riot apps",
   "main": "dist/rg-router.min.js",
   "files": [
