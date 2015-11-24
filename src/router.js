@@ -137,7 +137,14 @@
     if (typeof history.pushState != 'undefined' && state.history != false) {
       // New state
       if (!history.state || !popped) {
-        history.pushState(state, null, buildURL(state))
+        var _newState = {}
+        // Only copy serializable properties
+        for (var key in state) {
+          if (state.hasOwnProperty(key) && typeof state[key] !== 'function') {
+            _newState[key] = state[key]
+          }
+        }
+        history.pushState(_newState, null, buildURL(state))
       }
     }
     const prevState = router.current
